@@ -37,10 +37,10 @@ class _PantallaInicialState extends State<PantallaInicial> {
           TextFormField(
             controller: _usuarioController,
             decoration: InputDecoration(
-              labelText: 'Ingresa el usuario'
+              labelText: 'Ingresa el correo'
             ),
             validator: (value)=>
-              (value == null || value.isEmpty) ? 'Ingrese el usuario' :
+              (value == null || value.isEmpty) ? 'Ingrese el correo' :
               (!value.contains('@') ? 'Necesita tener @' : null)
           ),
           TextFormField(
@@ -61,16 +61,38 @@ class _PantallaInicialState extends State<PantallaInicial> {
                   "password": _pwController.text
                 });
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(respuesta ? 'Login exitoso' : 'Credenciales incorrectas'),
-                    backgroundColor: respuesta ? Colors.green : Colors.red,
-                  ),
-                );
-                respuesta==true
-                ? Navigator.pushNamed(context, '/logueado')
-                
-                : null;
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     content: Text(respuesta ? 'Login exitoso' : 'Credenciales incorrectas'),
+                //     backgroundColor: respuesta ? Colors.green : Colors.red,
+                //   ),
+                // );
+                // respuesta==true
+                // ? Navigator.pushNamed(context, '/logueado')
+                // : null;
+                if(!respuesta){
+                  //mensaje con boton para cerrar B_02
+                  showDialog(
+                    context: context,
+                    builder: (dialogContext) => AlertDialog(
+                      title: const Text("Credencial incorrecta"),
+                      content: const Text("¿Tienes una cuenta?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text("Si"),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pushNamed(context, '/register'),
+                          child: const Text("No"),
+                        ),
+                      ],
+                    ),
+                  );
+
+                }else{
+                  Navigator.pushNamed(context, '/home');
+                }
               }
               
             },child: Text('Iniciar sesión'),

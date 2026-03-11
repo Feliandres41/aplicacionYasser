@@ -1,8 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pantallas/logueo.dart';
-import 'package:flutter_application_1/pantallas/pantalla_inicial.dart';
+import 'package:flutter_application_1/router/manejo_rutas.dart';
 
 void main(){
   runApp(Myapp());
@@ -14,12 +13,9 @@ class Myapp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowMaterialGrid: false,
-      initialRoute: '/',
-      routes: {
-        '/':(context)=>PantallaInicial(),
-        '/logueado':(context)=>Logueo()
-      },
+      debugShowCheckedModeBanner: false,
+      initialRoute: ManejoRutas.rutaInicial,
+      routes: ManejoRutas.manejoRutas(),
     );
   }
 }
